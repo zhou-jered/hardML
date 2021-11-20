@@ -12,12 +12,11 @@ import java.io.IOException;
 public class ImageTest {
 
     static void seeMode() {
-        File dir = new File("images");
+        File dir = new File("images-u");
         File[] files = dir.listFiles();
         for (File f : files) {
             try {
                 BufferedImage bi = ImageIO.read(f);
-
                 System.out.println(f.getName() + ":" + bi.getType());
                 System.out.println(bi.getColorModel());
                 System.out.println();
@@ -28,11 +27,11 @@ public class ImageTest {
     }
 
     public static void main(String[] args) throws Exception {
-
+        seeMode();
 
         File file = new File("images/CoffeeBean.png");
         if (file.exists()) {
-//            return;
+            return;
         }
         BufferedImage bufferedImage = ImageIO.read(file);
         int width = bufferedImage.getWidth();
@@ -41,11 +40,7 @@ public class ImageTest {
         BufferedImage newImage = new BufferedImage(width - 2, height - 2, bufferedImage.getType());
 
         Rectangle rectangle = new Rectangle(200, 40, 120, 250);
-        int[][] kernelR = new int[][]{
-                {0, 0, 1},
-                {0, 2, 0},
-                {1,0, 0}
-        };
+        int[][] kernelR = new int[][]{{0, 0, 1}, {0, 2, 0}, {1, 0, 0}};
         int[][] kernelG = new int[][]{{1, 1, 1}, {0, 0, 0}, {-1, -1, -1}};
         int[][] kernelB = new int[][]{{1, 1, 1}, {0, 0, 0}, {-1, -1, -1}};
 
