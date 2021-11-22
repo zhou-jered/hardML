@@ -66,6 +66,18 @@ public class KDTreeNode {
         return nodeVal;
     }
 
+    public double distance(int[] point) {
+        assert point.length == data.length;
+        double l2 = 0;
+        for (int i = 0; i < point.length; i++) {
+            double t = point[i] - data[i];
+            l2 += t * t;
+        }
+        return Math.sqrt(l2);
+    }
+
+
+
     @Override
     public String toString() {
         return "KDTreeNode{" + "data=" + Arrays.toString(data) + ", depth=" + depth + ", splitDimension=" + splitDimension + ", nodeVal=" + nodeVal + '}';

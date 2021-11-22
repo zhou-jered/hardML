@@ -23,6 +23,12 @@ public class KDTreeFactory {
         } else {
             sortBySingleDimension(points, splitIdx);
             int midNodeIdx = points.size() / 2;
+            while (midNodeIdx < points.size() - 1) {
+                //to ensure the relation of "<=" in the binary tree¬
+                if (points.get(midNodeIdx)[splitIdx] == points.get(midNodeIdx + 1)[splitIdx]) {
+                    midNodeIdx++;
+                }
+            }
             int[] midData = points.get(midNodeIdx);
             KDTreeNode midNode = newNode(midData, splitIdx, depth);
             List<int[]> leftPart = points.subList(0, midNodeIdx);

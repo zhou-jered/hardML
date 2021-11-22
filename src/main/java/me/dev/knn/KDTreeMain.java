@@ -21,7 +21,7 @@ public class KDTreeMain {
         KDTreeNode targetNode = knn.searchTarget(new int[]{7, 2});
 
         System.out.println("search [7,2]: " + targetNode);
-        System.out.println("search [9,6]: " + knn.searchTarget(new int[]{9, 6}));
+        System.out.println("search [9,6]: " + knn.searchNearest(new int[]{8, 6}));
     }
 
     static void seeTree(KDTreeNode root) {
