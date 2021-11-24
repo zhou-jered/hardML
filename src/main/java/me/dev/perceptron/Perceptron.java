@@ -2,10 +2,11 @@ package me.dev.perceptron;
 
 public class Perceptron {
 
-    private double[] weight;
-    private double learningRate;
+    private double[] weight; // n+1
+    private double learningRate; // n
     private ActiveFunction activeFunction;
 
+    // 0.05 n=2
     public Perceptron(double learningRate, int size, ActiveFunction activeFunction) {
         this.learningRate = learningRate;
         weight = new double[size + 1]; // the last one is the bias
@@ -16,7 +17,7 @@ public class Perceptron {
         assert input.length == weight.length - 1;
         double result = 0;
         for (int i = 0; i < input.length; i++) {
-            result += input[i] * weight[i];
+            result += input[i] * weight[i]; // wi * xi
         }
         result += weight[input.length];
         boolean r = activeFunction.filter(result);

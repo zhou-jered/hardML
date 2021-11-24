@@ -1,7 +1,9 @@
 package me.dev.decesiontree;
 
+import me.dev.utils.DataUitls;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,10 +33,42 @@ public class Entropy {
      * 随机变量X给定的条件下随机变量Y的条件熵 H（Y｜X）定义为
      * X 给定条件下Y的条件概率分布的熵对X的数学期望
      * H(Y|X) = ∑p(i) * H(Y | X=x(i))
+     *
      * @return
      */
     public static double calConditionalEntropy(List<int[]> input, int[] output, int conditionDimension) {
-        return 1;
+        int inputDimensionValCardinal = DataUitls.counterDimensionCardinalNumber(input, conditionDimension);
+        int[] inputDimValCounter = new int[inputDimensionValCardinal];
+        double[] dimPossibility = new double[inputDimensionValCardinal];
+        double[] conditionalDistributionEntropy = new double[inputDimensionValCardinal];
+
+        input.forEach(d -> {
+            inputDimValCounter[d[conditionDimension]]++;
+        });
+        for (int i = 0; i < inputDimensionValCardinal; i++) {
+            dimPossibility[i] = inputDimValCounter[i] * 1.0 / input.size();
+        }
+
+        for (int i = 0; i < inputDimensionValCardinal; i++) {
+            List<Integer> filteredByInputDimValOutputList = new ArrayList<>();
+            final int expectDimensionVal = i;
+            for (int j = 0; j < input.size(); j++) {
+                if (input.get(j)[conditionDimension] == expectDimensionVal) {
+                    filteredByInputDimValOutputList.add(output[i]);
+                }
+            }
+            int[] conditionOutput = new int[filteredByInputDimValOutputList.size()];
+            for (int e = 0; e < filteredByInputDimValOutputList.size(); e++) {
+                conditionOutput[e] = filteredByInputDimValOutputList.get(e);
+            }
+            conditionalDistributionEntropy[i] = calEntropy(conditionOutput);
+        }
+
+        double conditionalEntropy = 0;
+        for (int i = 0; i < inputDimensionValCardinal; i++) {
+            conditionalEntropy += dimPossibility[i] * conditionalDistributionEntropy[i];
+        }
+        return conditionalEntropy;
     }
 
     public static void main(String[] args) {
