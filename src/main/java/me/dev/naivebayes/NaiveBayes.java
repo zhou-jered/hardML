@@ -61,11 +61,9 @@ public class NaiveBayes {
 //            xPossibility[i] = new double[sz];
         }
 
-        for (int k_idx = 0; k_idx < k; k++) {
+        for (int k_idx = 0; k_idx < k; k_idx++) {
             for (int i = 0; i < n; i++) {
-                final int sz = dimensionCardinal[i] + 1;
                 Arrays.fill(inputDimensionCardinalNumber[i], 0);
-//            xPossibility[i] = new double[sz];
             }
             for (int i = 0; i < input.size(); i++) {
                 if (output[i] != k_idx) {
@@ -82,6 +80,7 @@ public class NaiveBayes {
                 // the naive bayes' Hypothesis
                 final int total = MathUtils.sum(inputDimensionCardinalNumber[i]);
                 final int dimenSize = dimensionCardinal[i];
+                pyxPossibility[k_idx][i] = new double[dimenSize + 1];
                 for (int dimension = 0; dimension <= dimenSize; dimension++) {
                     pyxPossibility[k_idx][i][dimension] = inputDimensionCardinalNumber[i][dimension] * 1.0 / total;
                 }
@@ -103,7 +102,7 @@ public class NaiveBayes {
         }
         double max = -1;
         PredictResult result = null;
-        for (int k_idx = 0; k_idx < k; k++) {
+        for (int k_idx = 0; k_idx < k; k_idx++) {
             if (possibility[k_idx] > max) {
                 result = new PredictResult(k_idx, possibility[k_idx]);
                 max = possibility[k_idx];
