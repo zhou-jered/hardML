@@ -1,5 +1,7 @@
 package me.dev.utils;
 
+import java.util.Arrays;
+
 public class MathUtils {
 
     public static int dotMultiple(int[][] a, int[][] b) {
@@ -13,5 +15,14 @@ public class MathUtils {
         }
         return result;
     }
+
+    public static double sum(double[] eles) {
+        return Arrays.stream(eles).sum();
+    }
+
+    public static int sum(int[] eles) {
+        return Arrays.stream(eles).sum();
+    }
+
 
 }
