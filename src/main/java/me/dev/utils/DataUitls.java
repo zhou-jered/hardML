@@ -1,5 +1,7 @@
 package me.dev.utils;
 
+import me.dev.common.TrainData;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,6 +35,25 @@ public class DataUitls {
             }
         });
         return result;
+    }
+
+    public static TrainData filterTrainDataByDimensionValue(List<int[]> input, int[] y, int dimension, int dimensionVal) {
+        List<int[]> filteredInput = new ArrayList<>();
+        List<Integer> filteredY = new ArrayList<>();
+
+        for (int i = 0; i < input.size(); i++) {
+            int[] d = input.get(i);
+            if (d[dimension] == dimensionVal) {
+                filteredInput.add(d);
+                filteredY.add(y[i]);
+            }
+        }
+        int[] arrayY = new int[filteredY.size()];
+        for (int i = 0; i < filteredY.size(); i++) {
+            arrayY[i] = filteredY.get(i);
+        }
+        return new TrainData(filteredInput, arrayY);
+
     }
 
     public static int countDimensionCardinalNumber(int[] data) {
