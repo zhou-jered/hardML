@@ -4,29 +4,35 @@ import com.google.common.collect.Sets;
 import me.dev.common.TrainData;
 import me.dev.utils.DataUitls;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * build decision tree based on information gain
  */
-public class DecisionTreeID3 implements DecisionTree {
+public class DecisionTreeID3 {
 
     private final int n;
+    TreeNode root;
 
     // the input dimension
     public DecisionTreeID3(int n) {
         this.n = n;
     }
 
-    @Override
-    public void learn(List<int[]> input, int[] output) {
 
+    public void learn(List<int[]> input, int[] output) {
+        root = buildTreeInternal(input, output, new HashSet<>());
     }
 
-    @Override
+
     public int predict(int[] input) {
-        return 0;
+        TreeNode current = root;
+        while (current != null && !current.isLeaf()) {
+            current = current.getChild(input);
+        }
+        return current.getCategory();
     }
 
 
