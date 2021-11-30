@@ -37,6 +37,9 @@ public class DecisionTreeID3 {
 
 
     private TreeNode buildTreeInternal(List<int[]> input, int[] y, Set<Integer> usedDimensions) {
+        if (y.length == 0) {
+            return null;
+        }
         if (y.length == 1) {
             TreeNode treeNode = TreeNode.builder().category(y[0]).isLeaf(true).build();
             return treeNode;

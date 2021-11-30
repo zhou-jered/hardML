@@ -54,14 +54,19 @@ public class Entropy {
             final int expectDimensionVal = i;
             for (int j = 0; j < input.size(); j++) {
                 if (input.get(j)[conditionDimension] == expectDimensionVal) {
-                    filteredByInputDimValOutputList.add(output[i]);
+                    filteredByInputDimValOutputList.add(output[j]);
                 }
             }
             int[] conditionOutput = new int[filteredByInputDimValOutputList.size()];
             for (int e = 0; e < filteredByInputDimValOutputList.size(); e++) {
                 conditionOutput[e] = filteredByInputDimValOutputList.get(e);
             }
-            conditionalDistributionEntropy[i] = calEntropy(conditionOutput);
+            if (conditionOutput.length > 0) {
+                conditionalDistributionEntropy[i] = calEntropy(conditionOutput);
+            } else {
+                conditionalDistributionEntropy[i] = 0;
+            }
+
         }
 
         double conditionalEntropy = 0;
